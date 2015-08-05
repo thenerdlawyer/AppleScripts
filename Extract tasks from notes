@@ -1,0 +1,9 @@
+set q to the clipboard as text
+set l to paragraphs of (do shell script "/usr/bin/pbpaste | /usr/bin/grep [†]")
+
+tell application "OmniFocus" to tell document 1
+	repeat with v in l
+		set trimmed_name to characters 6 thru -1 of v as string
+		set newTask to (make new inbox task with properties {name:trimmed_name, note:q})
+	end repeat
+end tell
